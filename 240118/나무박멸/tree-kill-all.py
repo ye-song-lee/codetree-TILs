@@ -65,10 +65,11 @@ def scatter():
         for length in range(1, k+1):  # 1부터 k까지
             nx, ny = x + length * dx[direction], y + length * dy[direction]
             if 0 <= nx < n and 0 <= ny < n:
+                grid[nx][ny] = 0
                 jecho[nx][ny] = -(c+1)
                 if grid[nx][ny] <= 0:
                     break
-                grid[nx][ny] = 0
+                
     return erase[x][y]
 
 def year_pass():
