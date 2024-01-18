@@ -10,6 +10,7 @@ def grow():
                     if 0<=nx<n and 0<=ny<n and grid[nx][ny]>0:
                         grow_degree += 1
             grid[x][y] += grow_degree
+    #print(grid)
 
 def breed():
     dx = [-1, 1, 0, 0]
@@ -30,6 +31,7 @@ def breed():
     for x in range(n):
         for y in range(n):
             grid[x][y] += breeding[x][y]
+    #print(grid)
 
 def scatter():
     dx = [-1, -1, 1, 1]
@@ -40,8 +42,8 @@ def scatter():
     most = -1
     most_list = []
     # 행 -> 열 순으로 돌기 => 자동으로 행 작은->열 작은으로 정렬돼서 저장
-    for y in range(n):
-        for x in range(n):
+    for x in range(n):
+        for y in range(n):
             if grid[x][y] > 0:  # 나무인 칸
                 erase[x][y] += grid[x][y] # 자기 자신도 더하기
                 for direction in range(4):
@@ -56,7 +58,7 @@ def scatter():
                     most_list = []
                 most = erase[x][y]
                 most_list.append([x,y])
-
+    #print(most_list)
     # 제초제 뿌리기
     x,y = most_list[0][0],most_list[0][1]
     jecho[x][y] = -(c+1)
@@ -65,11 +67,10 @@ def scatter():
         for length in range(1, k+1):  # 1부터 k까지
             nx, ny = x + length * dx[direction], y + length * dy[direction]
             if 0 <= nx < n and 0 <= ny < n:
-                grid[nx][ny] = 0
                 jecho[nx][ny] = -(c+1)
                 if grid[nx][ny] <= 0:
                     break
-                
+                grid[nx][ny] = 0
     return erase[x][y]
 
 def year_pass():
