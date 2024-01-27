@@ -1,8 +1,6 @@
 def store_tagger_route(n):
     global tagger_route
     # 상.우.하.좌 -> 하.우.상.좌
-    dx = [-1,0,1,0]
-    dy = [0,1,0,-1]
     x,y = n//2,n//2
     distance = 1
     distance_num = 0
@@ -10,7 +8,7 @@ def store_tagger_route(n):
     while True:
         distance_num += 1
         for _ in range(distance):
-            nx,ny = x+dx[direction],y+dy[direction]
+            nx,ny = x+tagger_dx[direction],y+tagger_dy[direction]
             if nx==-1 and ny==0:
                 # 반대 경로 저장
                 reverse_route = []
