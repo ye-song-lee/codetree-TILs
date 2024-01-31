@@ -1,6 +1,8 @@
 from collections import deque
 def findIsland(x,y):
     global isVisited
+    # 빨간색 폭탄 이번에 지났는지 체크
+    thisTimeVisited = [[False for i in range(n)] for j in range(n)]
     way = []
     redcnt = 0
     dx = [-1,1,0,0]
@@ -15,11 +17,12 @@ def findIsland(x,y):
         for d in range(4):
             nx,ny = x+dx[d],y+dy[d]
             if 0<=nx<n and 0<=ny<n:
-                if (grid[nx][ny]==color and isVisited[nx][ny]==False) or grid[nx][ny]==0:
+                if (grid[nx][ny]==color and isVisited[nx][ny]==False) or (grid[nx][ny]==0 and thisTimeVisited[nx][ny]==False):
                     q.append((nx,ny))
                     isVisited[nx][ny]=True
                     if grid[nx][ny]==0:
                         redcnt += 1
+                        thisTimeVisited[nx][ny] = True
                     way.append((nx,ny))
     way.sort(key=lambda x:(-x[0],x[1]))
     # 빨간색 아닌 폭탄 중 (행 가장 큰+열 가장 작은) 좌표를 0번으로 옮겨줌
