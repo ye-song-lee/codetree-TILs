@@ -33,7 +33,7 @@ def move():
             isDead[player_num] = Dead
             continue
         grid[x][y] = (player_num+1)
-        time[x][y] = (K+1)
+        time[x][y] = (K)
         current[player_num] = next[player_num]
     next = [[] for _ in range(M)]
 
@@ -79,7 +79,7 @@ time = [[0 for i in range(N)] for j in range(N)]
 for i in range(N):
     for j in range(N):
         if grid[i][j] != 0:
-            time[i][j] = (K+1)
+            time[i][j] = (K)
             player_num = grid[i][j]
             current[player_num-1] = [i,j,first_d[player_num-1]-1]
 Dead,Alive = 0,1
@@ -87,9 +87,9 @@ isDead = [Alive for _ in range(M)]
 answer = 0
 
 while True:
+    timeSpend()
     getNextSpot()
     move()
-    timeSpend()
     if isFinish():
         break
 print(answer)
