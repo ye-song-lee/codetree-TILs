@@ -48,11 +48,11 @@ def move_packman():
     for directions in move_combination:
         x,y = packman
         howmany = 0
-        isVisit = [[False for i in range(4)] for j in range(4)]
+        isVisit = [[False for ni in range(4)] for nj in range(4)]
         for direction in directions:
             nx,ny = x+dx[direction],y+dy[direction]
             if in_range(nx,ny)==False:
-                continue
+                break
             if isVisit[nx][ny]==False:
                 howmany += len(monsters[nx][ny])
                 isVisit[nx][ny]=True
