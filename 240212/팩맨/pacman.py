@@ -52,6 +52,7 @@ def move_packman():
         for direction in directions:
             nx,ny = x+dx[direction],y+dy[direction]
             if in_range(nx,ny)==False:
+                howmany = 0
                 break
             if isVisit[nx][ny]==False:
                 howmany += len(monsters[nx][ny])
@@ -59,10 +60,12 @@ def move_packman():
             x,y = nx,ny
         if howmany > maxEat:
             maxEat,maxDir = howmany,directions
+    #print(maxDir)
     # 최대위치로 팩맨 옮기기 + 잡아먹은 몬스터 시체로 바꾸기
     x,y = packman
     for direction in maxDir:
         nx,ny = x+dx[direction], y+dy[direction]
+        #print(x,y,direction,dx[direction],dy[direction])
         if len(monsters[nx][ny])>0:
             carcases[nx][ny] = -3
         monsters[nx][ny] = []
