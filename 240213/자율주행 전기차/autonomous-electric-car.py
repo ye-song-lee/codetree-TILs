@@ -23,6 +23,7 @@ def get_distance(sx,sy,ex,ey):
                 q.append((nx,ny))
                 isVisited[nx][ny]=True
                 distance[nx][ny]=distance[x][y]+1
+    return -1
 
 def select_person():
     minimum = (N*N+1,N,N)
@@ -31,6 +32,9 @@ def select_person():
         if isArrived[i]==ARRIVED:
             continue
         distance = get_distance(car_pos[0],car_pos[1],starts[i][0],starts[i][1])
+        # 차가 해당 승객에게 도달할 수 없음
+        if distance == -1:
+            return [-1,-1]
         person_priority = (distance,starts[i][0],starts[i][1])
         if person_priority < minimum:
             minimum = person_priority
@@ -40,6 +44,9 @@ def select_person():
 def car_get_person():
     global C,car_pos,isArrived
     person_idx,info = select_person()
+    if person_idx == -1:
+        C = -1
+        return -1
     distance,px,py = info
     if C - distance < 0:
         C = -1
