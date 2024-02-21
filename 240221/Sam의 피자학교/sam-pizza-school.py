@@ -14,7 +14,7 @@ def make_dough(side_len,start_idx,end):
     num = 0
     x,y = side_len//2,side_len//2
     if side_len%2==0:
-        x,y = x-1,y-1
+        x = x-1
     dough[x][y] = flour[num]
     num += 1
     while True:
