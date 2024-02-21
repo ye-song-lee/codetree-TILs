@@ -16,11 +16,13 @@ def make_dough(side_len,start_idx,end):
     if side_len%2==0:
         x = x-1
     dough[x][y] = flour[num]
+    #dough[x][y] = num
     num += 1
     while True:
         for _ in range(distance):
             nx,ny = x+dx[direction],y+dy[direction]
             dough[nx][ny] = flour[num]
+            #dough[nx][ny] = num
             num += 1
             if num == end:
                 return dough
@@ -41,9 +43,13 @@ def roll_dough():
         start_idx = 1
         if (side_len%2) != 0:
             start_idx += 2
-    else:
+    elif N >= (side_len-1)*(side_len):
         start_idx = 0
-        if (side_len%2) == 0:
+        if (side_len % 2) == 0:
+            start_idx += 2
+    else:
+        start_idx = 1
+        if ((side_len-1) % 2) != 0:
             start_idx += 2
     #
     if N == (side_len) ** 2:
@@ -60,7 +66,7 @@ def roll_dough():
     # 직사각형인 경우
     else:
         add = []
-        for i in range((side_len-1)*(side_len),N):
+        for i in range(end,N):
             add.append(flour[i])
         return [dough,add]
 
@@ -89,7 +95,7 @@ def press_dough(dough,add_dough,xlen,ylen):
     to_be_add_2 = [0 for i in range(len(add_dough))]
     for i in range(len(add_dough)):
         if i==0:
-            if dough[xlen-1][ylen-2]>add_dough[i]:
+            if dough[endx][endy]>add_dough[i]:
                 to_be_add_2[i] += (dough[endx][endy]-add_dough[i])//5
                 to_be_add[endx][endy] -= (dough[endx][endy]-add_dough[i])//5
             else:
@@ -150,6 +156,7 @@ flour = list(map(int,input().split()))
 # 상-좌-하-우
 dx = [-1, 0, 1, 0]
 dy = [0, -1, 0, 1]
+
 
 answer = 0
 while True:
