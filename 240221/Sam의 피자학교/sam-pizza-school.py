@@ -71,10 +71,13 @@ def in_range(x,y,xlen,ylen):
 
 def press_dough(dough,add_dough,xlen,ylen):
     to_be_add = [[0 for y in range(ylen)] for x in range(xlen)]
+    endx,endy = -1,-1
     for x in range(xlen):
         for y in range(ylen):
             if dough[x][y]==0:
                 continue
+            if (x,y) > (endx,endy):
+                endx,endy = x,y
             for d in range(4):
                 nx,ny = x+dx[d],y+dy[d]
                 if in_range(nx,ny,xlen,ylen) and dough[nx][ny]!=0:
@@ -87,11 +90,11 @@ def press_dough(dough,add_dough,xlen,ylen):
     for i in range(len(add_dough)):
         if i==0:
             if dough[xlen-1][ylen-2]>add_dough[i]:
-                to_be_add_2[i] += (dough[xlen-1][ylen-2]-add_dough[i])//5
-                to_be_add[xlen-1][ylen-2] -= (dough[xlen-1][ylen-2]-add_dough[i])//5
+                to_be_add_2[i] += (dough[endx][endy]-add_dough[i])//5
+                to_be_add[endx][endy] -= (dough[endx][endy]-add_dough[i])//5
             else:
-                to_be_add_2[i] -= (add_dough[i]-dough[xlen-1][ylen-2])//5
-                to_be_add[xlen-1][ylen-2] += (add_dough[i]-dough[xlen-1][ylen-2])//5
+                to_be_add_2[i] -= (add_dough[i]-dough[endx][endy])//5
+                to_be_add[endx][endy] += (add_dough[i]-dough[endx][endy])//5
         if i+1<len(add):
             if add_dough[i]>add_dough[i+1]:
                 to_be_add_2[i] -= (add_dough[i]-add_dough[i+1])//5
