@@ -43,13 +43,13 @@ def move_to_red(type,i,j):
 def get_score():
     global yellow,red,score
     # 노란색
-    for x in range(5,-1,-1):
+    for x in range(6):
         if sum(yellow[x])==4:
             score += 1
             yellow[x]=[0,0,0,0]
             yellow_gravity(x)
     # 빨간색
-    for x in range(5,-1,-1):
+    for x in range(6):
         SUM = 0
         for y in range(4):
             SUM += red[y][x]
