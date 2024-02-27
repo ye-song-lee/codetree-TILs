@@ -5,10 +5,10 @@ def rotate(X,D,K):
         for j in range(len(dart[i])):
             # 시계
             if D==0:
-                newdisk[(j+K)%N] = dart[i][j]
+                newdisk[(j+K)%M] = dart[i][j]
             # 반시계
             else:
-                newdisk[(j-K+N)%N] = dart[i][j]
+                newdisk[(j-K+M)%M] = dart[i][j]
         for j in range(len(dart[i])):
             dart[i][j] = newdisk[j]
 
@@ -18,6 +18,8 @@ def erase():
     isErase = [[NotErase for j in range(M)] for i in range(N)]
     for i in range(N):
         for j in range(M):
+            if dart[i][j]==0:
+                continue
             if dart[i][j]==dart[i][(j-1+M)%M]:
                 isErase[i][j] = Erase
                 isErase[i][(j-1+M)%M] = Erase
@@ -32,13 +34,20 @@ def erase():
 
 def normalization():
     global dart
-    AVG = sum(dart)//(N*M)
+    SUM,AVG,NUM = 0,0,0
     for i in range(N):
         for j in range(M):
-            if dart[i][j] > AVG:
-                dart[i][j] -= 1
-            elif dart[i][j] < AVG:
-                dart[i][j] += 1
+            if dart[i][j] != 0:
+                SUM += dart[i][j]
+                NUM += 1
+    AVG = SUM//NUM
+    for i in range(N):
+        for j in range(M):
+            if dart[i][j] != 0:
+                if dart[i][j] > AVG:
+                    dart[i][j] -= 1
+                elif dart[i][j] < AVG:
+                    dart[i][j] += 1
 def get_answer():
     print(sum([sum(i) for i in dart]))
 
@@ -49,6 +58,6 @@ dart = [list(map(int,input().split())) for _ in range(N)]
 for _ in range(Q):
     X,D,K = map(int, input().split())
     rotate(X,D,K)
-if not erase():
-    normalization()
+    if not erase():
+        normalization()
 get_answer()
