@@ -36,9 +36,16 @@ def move_n_horse(horse_num):
             if in_range(nx,ny)==False or grid[nx][ny]==blue:
                 nx,ny = x,y
                 isMove = False
+            elif grid[nx][ny]==red:
+                horse_herd.reverse()
     else:
         d = switch_d(d)
         nx,ny = x+dx[d],y+dy[d]
+        if in_range(nx, ny) == False or grid[nx][ny] == blue:
+            nx, ny = x, y
+            isMove = False
+        elif grid[nx][ny] == red:
+            horse_herd.reverse()
     # 저장정보 변경
     if isMove:
         new_horse_herd = horse_herd + horse_grid[nx][ny]
